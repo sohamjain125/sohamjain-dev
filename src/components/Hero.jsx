@@ -169,7 +169,7 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full blur-xl animate-pulse-glow"></div>
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 dark:border-gray-700/20 shadow-2xl">
                   <img
-                    src="/images/profilepicnormal.png"
+                    src="/images/profilepicprof.jpg"
                     alt="Soham Jain - Full Stack Developer"
                     className="w-full h-full object-cover"
                     onError={(e) => {
