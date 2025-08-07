@@ -198,7 +198,7 @@ const Hero = () => {
         variants={fadeInUpDelayed(1.2)}
         initial="hidden"
         animate="visible"
-        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-4 sm:bottom-8 transform -translate-x-1/2"
       >
         <button
           onClick={() => scrollToSection('about')}

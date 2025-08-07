@@ -28,10 +28,10 @@ const Contact = () => {
     
     try {
       const result = await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_741qt4q',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_z5qau8z',
         e.target,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'VbIT5xyvC1QqVht05'
       );
       
       // Reset form
