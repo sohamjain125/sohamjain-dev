@@ -530,3 +530,105 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile for better performance */
+  .animate-float {
+    animation: none;
+  }
+  
+  .animate-pulse-glow {
+    animation: none;
+  }
+  
+  .animate-card-hover:hover {
+    animation: none;
+    transform: translateY(-2px) scale(1.01);
+  }
+  
+  .service-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Disable complex animations on mobile */
+  .service-card::before {
+    display: none;
+  }
+  
+  .achievement-card::before {
+    display: none;
+  }
+  
+  .project-card::after {
+    display: none;
+  }
+  
+  /* Reduce shadow complexity on mobile */
+  .shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .hover\:shadow-xl:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Simplify gradients on mobile */
+  .bg-gradient-to-br {
+    background: linear-gradient(135deg, var(--tw-gradient-stops));
+  }
+  
+  /* Reduce backdrop blur on mobile for performance */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Optimize transforms for mobile */
+  * {
+    will-change: auto;
+  }
+  
+  /* Only apply will-change to elements that actually animate */
+  .animate-card-hover,
+  .service-card,
+  .project-card {
+    will-change: transform;
+  }
+}
+
+/* High-end mobile optimizations */
+@media (max-width: 768px) and (min-resolution: 2dppx) {
+  /* Further reduce animations on high-DPI mobile devices */
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-shimmer-gradient {
+    animation: none;
+  }
+  
+  /* Simplify hover effects */
+  .group:hover .group-hover\:scale-105 {
+    transform: scale(1.02);
+  }
+  
+  .group:hover .group-hover\:text-blue-600 {
+    color: #2563eb;
+  }
+}
+
+/* Battery saver mode optimizations */
+@media (prefers-reduced-motion: reduce) and (max-width: 768px) {
+  /* Disable all animations when user prefers reduced motion on mobile */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Keep only essential hover states */
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+  
+  .hover\:shadow-lg:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}
