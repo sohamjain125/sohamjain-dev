@@ -1,8 +1,22 @@
 import { motion } from 'framer-motion';
 import { Code, Database, Palette, Cloud, Cpu, Globe, Zap, Monitor } from 'lucide-react';
 import { skills } from '../data/portfolioData';
+import { useState, useEffect } from 'react';
 
 const Skills = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const skillCategories = [
     {
       title: 'Frontend Development',
@@ -41,18 +55,40 @@ const Skills = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: isMobile ? 0.05 : 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: isMobile ? 10 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6
+        duration: isMobile ? 0.4 : 0.6
+      }
+    }
+  };
+
+  const skillItemVariants = {
+    hidden: { opacity: 0, x: isMobile ? -10 : -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: isMobile ? 0.3 : 0.5
+      }
+    }
+  };
+
+  const progressVariants = {
+    hidden: { width: 0 },
+    visible: {
+      width: (custom) => `${custom}%`,
+      transition: {
+        duration: isMobile ? 0.6 : 1,
+        delay: isMobile ? 0.1 : 0.2
       }
     }
   };
@@ -62,10 +98,10 @@ const Skills = () => {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: isMobile ? 0.6 : 0.8 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
@@ -107,10 +143,10 @@ const Skills = () => {
                 {category.skills.map((skill) => (
                   <motion.div
                     key={skill.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    variants={skillItemVariants}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="group"
                   >
                     <div className="flex justify-between items-center mb-1.5 sm:mb-2">
@@ -125,13 +161,16 @@ const Skills = () => {
                     {/* Progress Bar */}
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 sm:h-2 overflow-hidden">
                       <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
+                        variants={progressVariants}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 + index * 0.1 }}
+                        custom={skill.level}
                         className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full relative"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                        {!isMobile && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                        )}
                       </motion.div>
                     </div>
                   </motion.div>
@@ -143,10 +182,10 @@ const Skills = () => {
 
         {/* Call to Action */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: isMobile ? 0.6 : 0.8, delay: isMobile ? 0.3 : 0.6 }}
           className="text-center mt-16"
         >
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800/50 dark:to-gray-700/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
@@ -158,7 +197,7 @@ const Skills = () => {
               I continuously explore new frameworks, libraries, and tools to enhance my development workflow and deliver better solutions.
             </p>
             <div className="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400">
-              <Globe className="w-5 h-5 animate-spin-slow" />
+              <Globe className={`w-5 h-5 ${isMobile ? '' : 'animate-spin-slow'}`} />
               <span className="font-medium">Continuously expanding my skill set with AI tools</span>
             </div>
           </div>

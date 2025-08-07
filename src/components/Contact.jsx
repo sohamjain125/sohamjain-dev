@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, MessageSquare, User, FileText } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, User, FileText, CheckCircle, X } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import emailjs from '@emailjs/browser';
 
@@ -13,6 +13,8 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,11 +45,13 @@ const Contact = () => {
       });
       
       // Show success message
-      alert('Thank you for your message! I\'ll get back to you soon.');
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 5000); // Auto hide after 5 seconds
       
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('Sorry, there was an error sending your message. Please try again or contact me directly via email.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000); // Auto hide after 5 seconds
     } finally {
       setIsSubmitting(false);
     }
@@ -293,6 +297,66 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Success Notification */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: -100, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -100, scale: 0.8 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed top-4 right-4 z-50 max-w-sm w-full"
+          >
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-4 rounded-xl shadow-2xl border border-green-400/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6 text-green-100 flex-shrink-0" />
+                <div className="flex-1">
+                  <h4 className="font-semibold text-sm">Message Sent Successfully!</h4>
+                  <p className="text-green-100 text-xs mt-1">Thank you for your message! I'll get back to you soon.</p>
+                </div>
+                <button
+                  onClick={() => setShowSuccess(false)}
+                  className="text-green-100 hover:text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Error Notification */}
+      <AnimatePresence>
+        {showError && (
+          <motion.div
+            initial={{ opacity: 0, y: -100, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -100, scale: 0.8 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed top-4 right-4 z-50 max-w-sm w-full"
+          >
+            <div className="bg-gradient-to-r from-red-500 to-pink-600 text-white p-4 rounded-xl shadow-2xl border border-red-400/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-red-400 flex items-center justify-center flex-shrink-0">
+                  <X className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-sm">Message Failed to Send</h4>
+                  <p className="text-red-100 text-xs mt-1">Please try again or contact me directly via email.</p>
+                </div>
+                <button
+                  onClick={() => setShowError(false)}
+                  className="text-red-100 hover:text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
