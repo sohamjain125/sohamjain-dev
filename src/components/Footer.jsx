@@ -169,9 +169,8 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 text-gray-400">
-              <span>© {currentYear} {personalInfo.name}. Made with</span>
-              <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-              <span>and modern web technologies.</span>
+              <span>© {currentYear} {personalInfo.name}</span>
+              
             </div>
             
             <div className="flex items-center space-x-6 text-sm text-gray-400">

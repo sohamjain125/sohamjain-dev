@@ -198,18 +198,20 @@ const About = () => {
             </div>
 
             {/* Download Resume Button */}
-            <motion.button
+            <motion.a
               variants={fadeInUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-20px" }}
               whileHover={{ scale: isMobile ? 1.02 : 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
             >
               <Download size={20} />
               Download Resume
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Education */}

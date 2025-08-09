@@ -33,7 +33,7 @@ function App() {
     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
       <div className="relative w-full overflow-x-hidden">
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <main className="w-full">
+        <main id="main-content" className="w-full">
           <Hero />
           <About />
           <Skills />

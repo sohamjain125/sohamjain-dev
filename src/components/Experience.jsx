@@ -1,31 +1,9 @@
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Building } from 'lucide-react';
+import { experience as experienceData } from '../data/portfolioData';
 
 const Experience = () => {
-  const experiences = [
-    {
-      company: "Codemines Solutions Pvt Ltd",
-      position: "Software Engineer Intern",
-      period: "Jan 2025 – Jul 2025",
-      location: "Remote",
-      achievements: [
-        "Integrated 15+ REST APIs for PermAssist (internal platform) increasing data exchange efficiency by 30%.",
-        "Developed AI chatbot UI integrated with Amazon Lex, automating 60% of support."
-      ],
-      technologies: ["React", "Node.js", "REST APIs", "Amazon Lex", "AWS"]
-    },
-    {
-      company: "Tata Consultancy Services",
-      position: "Project Intern",
-      period: "Jun 2024 – Aug 2024",
-      location: "Mumbai, India",
-      achievements: [
-        "Developed 20+ REST APIs for AGM and IEPF projects (Node.js), improved backend efficiency by 40%.",
-        "Designed Angular frontends with <2s load time and 30% boost in user retention."
-      ],
-      technologies: ["Angular", "Node.js", "REST APIs", "TypeScript", "Express.js"]
-    }
-  ];
+  const experiences = experienceData;
 
   return (
     <section id="experience" className="py-20 bg-white dark:bg-gray-900">
