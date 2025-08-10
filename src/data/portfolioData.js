@@ -113,39 +113,28 @@ export const projects = [
   },
   {
     id: 3,
-    title: "BreakBuddy",
-    description: "Personal productivity web app designed to help users manage breaks and maintain work-life balance with smart notifications.",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop&crop=center&auto=format&q=80",
-    liveUrl: "https://breakbuddy-webapp.vercel.app/",
-    githubUrl: null,
-    technologies: ["React", "JavaScript", "CSS", "Local Storage"],
-    category: "Personal",
-    date: "2024"
-  },
-  {
-    id: 4,
     title: "Shiv Joyti NGO Website",
     description: "Informational website built for a local NGO. Features donation system, event updates, and volunteer registration.",
     image: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&h=400&fit=crop&crop=center&auto=format&q=80",
     liveUrl: "https://shiv-joyti.vercel.app/",
-    githubUrl: null,
+    githubUrl: "https://github.com/sohamjain125/shiv-joyti",
     technologies: ["React", "Next.js", "Tailwind CSS", "Vercel"],
     category: "Freelance",
     date: "2024"
   },
   {
-    id: 5,
+    id: 4,
     title: "CodeBuddy",
     description: "Freelance full-stack platform for real-time collaborative coding using Next.js, Appwrite, and REST APIs.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&crop=center&auto=format&q=80",
     liveUrl: "https://codie-buddy.vercel.app/",
-    githubUrl: null,
+    githubUrl: "https://github.com/sohamjain125/codebuddy",
     technologies: ["Next.js", "Appwrite", "REST APIs", "Real-time"],
     category: "Freelance",
     date: "2024"
   },
   {
-    id: 6,
+    id: 5,
     title: "PermAssist",
     description: "Internal Codemines tool for config editing, versioning, and JSON management with modern UI principles.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&crop=center&auto=format&q=80",
@@ -156,7 +145,7 @@ export const projects = [
     date: "2025"
   },
   {
-    id: 7,
+    id: 6,
     title: "AGM Project (TCS)",
     description: "Angular-based dashboard and RESTful API integration for Annual General Meeting operations.",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=400&fit=crop&crop=center&auto=format&q=80",

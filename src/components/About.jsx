@@ -205,9 +205,15 @@ const About = () => {
               viewport={{ once: true, margin: "-20px" }}
               whileHover={{ scale: isMobile ? 1.02 : 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/resume.pdf"
-              download
+              href="/Soham_Jain_FullstackDeveloper.pdf"
+              download="Soham_Jain_FullstackDeveloper.pdf"
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+              onClick={(e) => {
+                // Add a small delay to ensure the download starts
+                setTimeout(() => {
+                  console.log('Resume download initiated');
+                }, 100);
+              }}
             >
               <Download size={20} />
               Download Resume

@@ -152,7 +152,14 @@ const Projects = () => {
                 variants={cardVariants}
                 onHoverStart={() => !isMobile && setHoveredProject(project.id)}
                 onHoverEnd={() => !isMobile && setHoveredProject(null)}
-                className="project-card group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 h-72 sm:h-80"
+                onClick={() => {
+                  if (project.liveUrl) {
+                    window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                  } else if (project.githubUrl) {
+                    window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                className={`project-card group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 h-72 sm:h-80 ${(project.liveUrl || project.githubUrl) ? 'cursor-pointer hover:border-blue-300 dark:hover:border-blue-600' : 'cursor-default'}`}
               >
                 {/* Project Image/Header - Compact */}
                 <div className="relative h-32 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 overflow-hidden">
@@ -192,15 +199,15 @@ const Projects = () => {
                     </div>
                   )}
 
-                  {/* Hover Overlay - Only on desktop */}
-                  {!isMobile && (
+                  {/* Hover Overlay - Only on desktop and when links exist */}
+                  {!isMobile && (project.liveUrl || project.githubUrl) && (
                     <AnimatePresence>
                       {hoveredProject === project.id && (
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center"
+                          className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center ${(project.liveUrl || project.githubUrl) ? 'cursor-pointer' : 'cursor-default'}`}
                         >
                           <div className="flex gap-3">
                             {project.liveUrl && (
@@ -215,6 +222,10 @@ const Projects = () => {
                                 whileTap={{ scale: 0.9 }}
                                 className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-300"
                                 aria-label="Live Demo"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  console.log(`Opening live demo for: ${project.title}`);
+                                }}
                               >
                                 <ExternalLink className="w-4 h-4" />
                               </motion.a>
@@ -226,11 +237,15 @@ const Projects = () => {
                                 rel="noopener noreferrer"
                                 initial={{ scale: 0, rotate: -180 }}
                                 animate={{ scale: 1, rotate: 0 }}
-                                transition={{ delay: 0.2 }}
+                                transition={{ delay: project.liveUrl ? 0.2 : 0.1 }}
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors duration-300"
                                 aria-label="GitHub Repository"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  console.log(`Opening GitHub for: ${project.title}`);
+                                }}
                               >
                                 <Github className="w-4 h-4" />
                               </motion.a>
@@ -281,7 +296,7 @@ const Projects = () => {
 
                   {/* Action Buttons - Compact */}
                   <div className="flex gap-1 sm:gap-2 mt-auto">
-                    {project.liveUrl && (
+                    {project.liveUrl ? (
                       <motion.a
                         href={project.liveUrl}
                         target="_blank"
@@ -289,12 +304,26 @@ const Projects = () => {
                         whileHover={{ scale: isMobile ? 1.01 : 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="flex-1 flex items-center justify-center gap-1 py-2 px-2 sm:px-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg"
+                        onClick={(e) => {
+                          // Prevent event bubbling to avoid double opening
+                          e.stopPropagation();
+                          // Add click tracking
+                          console.log(`Opening live demo for: ${project.title}`);
+                        }}
                       >
                         <ExternalLink className="w-3 h-3" />
                         Demo
                       </motion.a>
+                    ) : (
+                      <div 
+                        className="flex-1 flex items-center justify-center gap-1 py-2 px-2 sm:px-3 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-medium rounded-lg cursor-not-allowed"
+                        title="Live demo not available for this project"
+                      >
+                        <Eye className="w-3 h-3" />
+                        Demo N/A
+                      </div>
                     )}
-                    {project.githubUrl && (
+                    {project.githubUrl ? (
                       <motion.a
                         href={project.githubUrl}
                         target="_blank"
@@ -302,15 +331,23 @@ const Projects = () => {
                         whileHover={{ scale: isMobile ? 1.01 : 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="flex-1 flex items-center justify-center gap-1 py-2 px-2 sm:px-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
+                        onClick={(e) => {
+                          // Prevent event bubbling to avoid double opening
+                          e.stopPropagation();
+                          // Add click tracking
+                          console.log(`Opening GitHub for: ${project.title}`);
+                        }}
                       >
                         <Github className="w-3 h-3" />
                         Code
                       </motion.a>
-                    )}
-                    {!project.liveUrl && !project.githubUrl && (
-                      <div className="flex-1 flex items-center justify-center gap-1 py-2 px-2 sm:px-3 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-medium rounded-lg">
-                        <Eye className="w-3 h-3" />
-                        Internal
+                    ) : (
+                      <div 
+                        className="flex-1 flex items-center justify-center gap-1 py-2 px-2 sm:px-3 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-medium rounded-lg cursor-not-allowed"
+                        title="Source code not publicly available"
+                      >
+                        <Code className="w-3 h-3" />
+                        Code N/A
                       </div>
                     )}
                   </div>
