@@ -320,7 +320,7 @@ const Projects = () => {
                         title="Live demo not available for this project"
                       >
                         <Eye className="w-3 h-3" />
-                        Demo N/A
+                        Demo  
                       </div>
                     )}
                     {project.githubUrl ? (
@@ -347,7 +347,7 @@ const Projects = () => {
                         title="Source code not publicly available"
                       >
                         <Code className="w-3 h-3" />
-                        Code N/A
+                        Code  
                       </div>
                     )}
                   </div>
