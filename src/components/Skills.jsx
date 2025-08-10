@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Palette, Monitor, Database, Cpu, Zap, Cloud } from 'lucide-react';
+import { Palette, Monitor, Database, Cpu, Zap, Cloud, Star } from 'lucide-react';
 import { skills } from '../data/portfolioData';
 
 const Skills = () => {
@@ -52,7 +52,7 @@ const Skills = () => {
             <span className="gradient-text">Technologies</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Technologies I work with to build modern applications
+            A comprehensive toolkit of technologies and frameworks I use to create innovative solutions
           </p>
         </motion.div>
 
@@ -78,29 +78,28 @@ const Skills = () => {
                 </h3>
               </div>
               
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
-                  <div key={skill.name} className="group/skill">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-gray-700 dark:text-gray-300 group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400 transition-colors">
-                        {skill.name}
-                      </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className={`h-full bg-gradient-to-r ${category.color} rounded-full relative`}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-                      </motion.div>
-                    </div>
-                  </div>
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`px-3 py-2 rounded-lg font-medium text-sm transition-all duration-300 cursor-default group/skill flex items-center gap-2 ${
+                      skill.level >= 90 
+                        ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 dark:from-green-900/30 dark:to-emerald-900/30 dark:text-green-300 border border-green-200 dark:border-green-700' 
+                        : skill.level >= 80 
+                        ? 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 dark:from-blue-900/30 dark:to-cyan-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-700'
+                        : skill.level >= 70
+                        ? 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 dark:from-purple-900/30 dark:to-pink-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700'
+                        : 'bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 dark:from-gray-700 dark:to-slate-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600'
+                    } hover:shadow-md hover:shadow-black/10 dark:hover:shadow-white/10`}
+                  >
+                    {skill.name}
+                    {skill.level >= 90 && <Star className="w-3 h-3 fill-current" />}
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
