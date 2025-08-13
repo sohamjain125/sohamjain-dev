@@ -105,7 +105,7 @@ export const projects = [
     title: "Katchit Vendor Panel",
     description: "Vendor management system for the Katchit platform. Allows vendors to manage orders, menus, and business operations.",
     image: "/images/katchit.png",
-    liveUrl: "https://vendor.katchit.in/signin",
+    liveUrl: "https://katchit.in/",
     githubUrl: null,
     technologies: ["React", "Node.js", "MongoDB", "Express.js"],
     category: "Freelance",
